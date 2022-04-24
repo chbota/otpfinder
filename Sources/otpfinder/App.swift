@@ -11,12 +11,18 @@ struct OTPFinderApp: App {
             contentView
         }
     }
-    
+
 }
 
 class AppDelegate: NSObject, NSApplicationDelegate {
+    var statusItem: NSStatusItem?
+    
     func applicationDidFinishLaunching(_ notification: Notification) {
-        NSApplication.shared.setActivationPolicy(.regular)
+        NSApplication.shared.setActivationPolicy(.accessory)
         NSApplication.shared.activate(ignoringOtherApps: true)
+        
+        
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        statusItem?.button?.
     }
 }

@@ -1,5 +1,11 @@
 import SwiftUI
 
+
+
+func sendNotification(title: String, body: String = "") {
+}
+
+
 struct ContentView: View {
     let messagesListener = MessagesListener()
 
@@ -44,6 +50,8 @@ struct ContentView: View {
                 print("Found code \(otp!). Adding to clipboard")
                 NSPasteboard.general.clearContents()
                 NSPasteboard.general.setString(otp!, forType:.string)
+                
+                sendNotification(title:"Otp Finder", body: "Copied code")
                 
                 // we only care about the first code we see, otherwise we'll overwrite more recent
                 // codes with older codes (messages are sorted by date desc)

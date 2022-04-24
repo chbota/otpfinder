@@ -18,7 +18,13 @@ let package = Package(
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .executableTarget(
             name: "otpfinder",
-            dependencies: [.product(name: "SQLite", package: "SQLite.swift")]
+            dependencies: [.product(name: "SQLite", package: "SQLite.swift")],
+            linkerSettings: [
+                    .unsafeFlags( ["-Xlinker", "-sectcreate",
+                                 "-Xlinker", "__TEXT",
+                                 "-Xlinker", "__info_plist",
+                                 "-Xlinker", "Resources/Info.plist"] )
+                ]
         )
     ]
 )

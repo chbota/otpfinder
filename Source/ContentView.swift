@@ -1,8 +1,17 @@
 import SwiftUI
+import UserNotifications
 
 
 
 func sendNotification(title: String, body: String = "") {
+    DispatchQueue.main.async {
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = body
+
+        let notification = UNNotificationRequest(identifier: "otpfinder", content: content, trigger:nil)
+        UNUserNotificationCenter.current().add(notification)
+    }
 }
 
 

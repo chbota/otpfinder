@@ -106,7 +106,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
                 NSPasteboard.general.clearContents()
                 NSPasteboard.general.setString(otp!, forType:.string)
                 
-                sendNotification(title:"Otp Finder", body: "Copied code")
+                sendNotification(title:"Otp Finder", body: "Copied code \(otp!)")
                 
                 // we only care about the first code we see, otherwise we'll overwrite more recent
                 // codes with older codes (messages are sorted by date desc)

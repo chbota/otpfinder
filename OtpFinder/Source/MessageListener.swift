@@ -152,7 +152,7 @@ final class MessagesListener : ObservableObject{
         }
         
         lastProcessed = Date()
-        let since = Date().addingTimeInterval(-1 * 60)
+        let since = Date().addingTimeInterval(-1 * 20)
         print("Processing messages since \(since)")
         do {
             let messages = try MessageTable.get(
@@ -170,7 +170,7 @@ final class MessagesListener : ObservableObject{
                     newMessages.append(message)
                 }
             }
-            onMessages(messages)
+            onMessages(newMessages)
         } catch {
             print(error)
         }

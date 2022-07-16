@@ -15,21 +15,9 @@ extension EnvironmentValues {
 @main
 struct OtpFinderApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @Environment(\.messagesListener) var messagesListener;
 
     var body: some Scene {
         WindowGroup {}
-    }
-}
-
-func sendNotification(title: String, body: String = "") {
-    DispatchQueue.main.async {
-        let content = UNMutableNotificationContent()
-        content.title = title
-        content.body = body
-
-        let notification = UNNotificationRequest(identifier: "otpfinder", content: content, trigger:nil)
-        UNUserNotificationCenter.current().add(notification)
     }
 }
 
@@ -114,4 +102,16 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
             }
         }
     }
+    
+    func sendNotification(title: String, body: String = "") {
+        DispatchQueue.main.async {
+            let content = UNMutableNotificationContent()
+            content.title = title
+            content.body = body
+
+            let notification = UNNotificationRequest(identifier: "otpfinder", content: content, trigger:nil)
+            UNUserNotificationCenter.current().add(notification)
+        }
+    }
+
 }

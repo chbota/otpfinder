@@ -14,6 +14,7 @@ struct MessageTable {
     static let FieldDate = Expression<Int64>("date")
     static let FieldText = Expression<String>("text")
     static let FieldIsFromMe = Expression<Bool>("is_from_me")
+
     
     private static let IMESSAGE_DATE_MULT: Int64 = 1000000000;
 

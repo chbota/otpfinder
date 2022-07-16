@@ -17,7 +17,7 @@ struct ContentView: View {
     let messagesListener = MessagesListener()
 
     @State var userMessage: String = ""
-    @State var showQuit: Bool = false
+    @State var showQuit: Bool = true
     
     var body: some View {
         VStack(alignment: .center, spacing: 3, content: {

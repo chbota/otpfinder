@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		D0BC1910288264A90039C4CD /* OtpFinderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BC190F288264A90039C4CD /* OtpFinderApp.swift */; };
-		D0BC1912288264A90039C4CD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0BC1911288264A90039C4CD /* ContentView.swift */; };
 		D0BC1914288264AA0039C4CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0BC1913288264AA0039C4CD /* Assets.xcassets */; };
 		D0BC1917288264AA0039C4CD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0BC1916288264AA0039C4CD /* Preview Assets.xcassets */; };
 		D0BC19202882650C0039C4CD /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0BC191F2882650C0039C4CD /* UserNotifications.framework */; };
@@ -22,7 +21,6 @@
 		D03AE0A928826F520044ECC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D0BC190C288264A90039C4CD /* OtpFinder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OtpFinder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0BC190F288264A90039C4CD /* OtpFinderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpFinderApp.swift; sourceTree = "<group>"; };
-		D0BC1911288264A90039C4CD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D0BC1913288264AA0039C4CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0BC1916288264AA0039C4CD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D0BC1918288264AA0039C4CD /* OtpFinder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OtpFinder.entitlements; sourceTree = "<group>"; };
@@ -97,7 +95,6 @@
 				D0BC1924288267550039C4CD /* MessageListener.swift */,
 				D0BC1926288267670039C4CD /* OtpUtils.swift */,
 				D0BC19282882677B0039C4CD /* Errors.swift */,
-				D0BC1911288264A90039C4CD /* ContentView.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -178,7 +175,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0BC1912288264A90039C4CD /* ContentView.swift in Sources */,
 				D0BC19292882677B0039C4CD /* Errors.swift in Sources */,
 				D0BC1927288267670039C4CD /* OtpUtils.swift in Sources */,
 				D0BC1925288267550039C4CD /* MessageListener.swift in Sources */,

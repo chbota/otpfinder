@@ -18,17 +18,8 @@ struct OtpFinderApp: App {
     @Environment(\.messagesListener) var messagesListener;
 
     var body: some Scene {
-        WindowGroup {
-            ContentView()
-                .handlesExternalEvents(preferring: Set(arrayLiteral: "ContentView"), allowing: Set(arrayLiteral: "ContentView"))
-        }
-        .commands {
-            CommandGroup(replacing: .newItem, addition: { })
-        }
-        .handlesExternalEvents(matching: Set(arrayLiteral: "ContentView"))
+        WindowGroup {}
     }
-   
-
 }
 
 func sendNotification(title: String, body: String = "") {
@@ -49,39 +40,63 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     var statusItem: NSStatusItem?
 
     func applicationDidFinishLaunching(_ notification: Notification) {
-        UNUserNotificationCenter.current().delegate = self
-        UNUserNotificationCenter.current().requestAuthorization(completionHandler: {
-            (Bool, Error) in
-            return
-        })
+        requestNotificationPermissions();
+        startListeningForMessages()
+        createStatusItem();
 
-        do {
-            try messagesListener.startListening(onMessages:onMessageReceived)
-        } catch {
-            print(error)
-        }
-        
-        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        let icon = NSImage(named: "AppIcon")
-        icon?.size.width = 16
-        icon?.size.height = 16
-        icon?.isTemplate = true // recolors icon automatically for dark/light modes
-        statusItem?.button?.image = icon
-        statusItem?.button?.target = self
-        statusItem?.button?.action = #selector(activateWindow(_:))
-        
         if let window = NSApplication.shared.windows.first {
             window.close()
         }
 
     }
     
-    @IBAction func activateWindow(_ sender: AnyObject) {
-        DispatchQueue.main.async {
-            self.openURL(URL(string: "otpfinder://ContentView")!)
+    @IBAction func quitApp(_ sender: AnyObject) {
+        exit(0)
+    }
+
+    func requestNotificationPermissions() {
+        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().requestAuthorization(completionHandler: {
+            (Bool, Error) in
+            return
+        })
+    }
+
+    func createStatusItem() {
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        
+        let icon = NSImage(named: "AppIcon")
+        icon?.size.width = 16
+        icon?.size.height = 16
+        icon?.isTemplate = true // recolors icon automatically for dark/light modes
+        
+        statusItem?.button?.image = icon
+        
+        let menu = NSMenu()
+
+        let statusMenuItem = NSMenuItem()
+        statusMenuItem.title = messagesListener.isListening() ? "Listening for OTPs..." : "Full disk access required!"
+
+        let quitMenuItem = NSMenuItem()
+        quitMenuItem.title = "Quit"
+        quitMenuItem.action = #selector(quitApp(_:))
+        quitMenuItem.target = self
+        quitMenuItem.isEnabled = true
+
+        menu.addItem(statusMenuItem)
+        menu.addItem(quitMenuItem)
+
+        statusItem?.menu = menu
+    }
+
+    func startListeningForMessages() {
+        do {
+            try messagesListener.startListening(onMessages:onMessageReceived)
+        } catch {
+            print(error)
         }
     }
-    
+
     func onMessageReceived(messages: [Message]) {
         for message in messages {
             let otp = extractOneTimePassword(fromMessage: message.text);

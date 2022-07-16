@@ -1,5 +1,3 @@
-
-
 import Foundation
 
 private func mayHaveCode(_ message: String) -> Bool {

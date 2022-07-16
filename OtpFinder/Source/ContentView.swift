@@ -1,8 +1,6 @@
 import SwiftUI
 import UserNotifications
 
-
-
 func sendNotification(title: String, body: String = "") {
     DispatchQueue.main.async {
         let content = UNMutableNotificationContent()
@@ -18,7 +16,7 @@ func sendNotification(title: String, body: String = "") {
 struct ContentView: View {
     let messagesListener = MessagesListener()
 
-    @State var userMessage: String
+    @State var userMessage: String = ""
     @State var showQuit: Bool = false
     
     var body: some View {
@@ -33,6 +31,7 @@ struct ContentView: View {
                 })
             }
         })
+        .frame(width: 500, height: 200, alignment: Alignment.center)
         .padding()
         .border(.bar, width: 1)
         .onAppear(perform: {
@@ -70,3 +69,10 @@ struct ContentView: View {
     }
 }
 
+
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}

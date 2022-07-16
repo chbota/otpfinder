@@ -103,7 +103,7 @@ final class FileListener {
 
 }
 
-final class MessagesListener {
+final class MessagesListener : ObservableObject{
     private static let IMESSAGE_DB_LOCATION = "Library/Messages/chat.db";
     private static let IMESSAGE_DB_WAL_LOCATION = "Library/Messages/chat.db-wal";
     private static let IMESSAGE_DB_URL = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent(
@@ -117,16 +117,28 @@ final class MessagesListener {
     
     private var seenMessages: [String: Bool] = [:]
     
+    private var isListeningForMessages: Bool = false
+    
+    func isListening() -> Bool {
+        return self.isListeningForMessages
+    }
+    
     func startListening(onMessages: @escaping ([Message]) -> Void) throws {
-        let changeHandler: () -> Void = {
-            [weak self] in
-                self?.onMessagesChange(onMessages:onMessages)
+        do {
+            let changeHandler: () -> Void = {
+                [weak self] in
+                    self?.onMessagesChange(onMessages:onMessages)
+            }
+            
+            print("Listening to primary db")
+            try messagesDBListener.startListening(onChange:changeHandler)
+            print("Listening to write-ahead log")
+            try messagesWALListener.startListening(onChange:changeHandler)
+            self.isListeningForMessages = true;
         }
-        
-        print("Listening to primary db")
-        try messagesDBListener.startListening(onChange:changeHandler)
-        print("Listening to write-ahead log")
-        try messagesWALListener.startListening(onChange:changeHandler)
+        catch {
+            self.isListeningForMessages = false;
+        }
     }
     
     func cleanupListener() {
